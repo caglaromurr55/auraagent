@@ -1,0 +1,283 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(circle at top right, hsla(var(--primary) / 0.1), transparent);
+}
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    background: hsla(var(--bg-secondary) / 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border));
+    border-radius: 2rem;
+    padding: 3rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    letter-spacing: 0.3em;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, hsl(var(--primary)), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: hsl(var(--fg-secondary));
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(var(--border));
+    transition: background 0.3s;
+}
+
+.dotActive {
+    background: hsl(var(--primary));
+    box-shadow: 0 0 10px hsla(var(--primary) / 0.5);
+}
+
+.stepTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: hsla(var(--fg-primary) / 0.03);
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-md);
+    color: hsl(var(--fg-primary));
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.item:hover {
+    background: hsla(var(--primary) / 0.05);
+    border-color: hsla(var(--primary) / 0.3);
+}
+
+.itemActive {
+    background: hsla(var(--primary) / 0.1);
+    border-color: hsl(var(--primary));
+}
+
+.staffGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.staffItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    color: hsl(var(--fg-primary));
+}
+
+.staffItem:hover {
+    background: hsla(var(--fg-primary) / 0.05);
+}
+
+.staffActive {
+    background: hsla(var(--primary) / 0.1);
+    border-color: hsl(var(--primary));
+}
+
+.dateInput {
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: hsl(var(--bg-primary));
+    font-size: 1.2rem;
+}
+
+.timeGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.timeSlot {
+    padding: 0.75rem;
+    background: hsla(var(--fg-primary) / 0.03);
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    color: hsl(var(--fg-primary));
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.timeBusy {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.timeActive {
+    background: hsl(var(--primary));
+    color: hsl(var(--bg-primary));
+    border-color: hsl(var(--primary));
+}
+
+.summary {
+    background: hsla(var(--fg-primary) / 0.05);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .calendarContainer {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .calendarCard {
+        padding: 1rem;
+    }
+
+    .dayCell {
+        min-height: 80px;
+        padding: 0.5rem;
+    }
+
+    .appointmentDot {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .dayHeader {
+        font-size: 0.65rem;
+        padding: 0.5rem 0.2rem;
+    }
+
+    .dayCell {
+        min-height: 60px;
+        padding: 0.3rem;
+    }
+
+    .dayNumber {
+        font-size: 0.75rem;
+    }
+
+    .appointmentDot {
+        display: none;
+        /* Hide text, show as dots on tiny screens */
+    }
+
+    .dayCell::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: transparent;
+        margin: 0 auto;
+    }
+
+    .dayCell:has(.appointmentDot)::after {
+        background: hsl(var(--primary));
+        box-shadow: 0 0 5px hsla(var(--primary) / 0.5);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .card {
+        padding: 2rem 1rem;
+        border-radius: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .staffGrid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .timeGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .actions {
+        flex-direction: column-reverse;
+    }
+
+    .actions button {
+        width: 100% !important;
+    }
+}

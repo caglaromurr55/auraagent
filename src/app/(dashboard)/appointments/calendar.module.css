@@ -1,0 +1,178 @@
+.calendarContainer {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    height: calc(100vh - 12rem);
+}
+
+.calendarCard {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.monthTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: hsl(var(--fg-primary));
+    text-transform: capitalize;
+}
+
+.navButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: hsla(var(--border) / 0.3);
+    border: 1px solid hsla(var(--border) / 0.3);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    flex: 1;
+}
+
+.dayHeader {
+    background: hsla(var(--bg-secondary) / 0.5);
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: hsl(var(--fg-secondary));
+    text-transform: uppercase;
+}
+
+.dayCell {
+    min-height: 100px;
+    padding: 0.75rem;
+    background: hsla(var(--bg-primary) / 0.4);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dayCell:hover {
+    background: hsla(var(--primary) / 0.05);
+}
+
+.dayCell.today {
+    background: hsla(var(--primary) / 0.1);
+}
+
+.dayNumber {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: hsl(var(--fg-secondary));
+}
+
+.today .dayNumber {
+    color: hsl(var(--primary));
+}
+
+.notCurrentMonth {
+    opacity: 0.3;
+}
+
+.appointmentDot {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: hsla(var(--primary) / 0.2);
+    color: hsl(var(--primary));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid hsla(var(--primary) / 0.3);
+}
+
+.detailsPane {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+
+.noAppointments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: hsl(var(--fg-secondary));
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .calendarContainer {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    .calendarContainer {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .calendarCard {
+        padding: 1rem;
+    }
+
+    .dayCell {
+        min-height: 80px;
+        padding: 0.5rem;
+    }
+
+    .appointmentDot {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .dayHeader {
+        font-size: 0.65rem;
+        padding: 0.5rem 0.2rem;
+    }
+
+    .dayCell {
+        min-height: 60px;
+        padding: 0.3rem;
+    }
+
+    .dayNumber {
+        font-size: 0.75rem;
+    }
+
+    .appointmentDot {
+        display: none;
+        /* Hide text, show as dots on tiny screens */
+    }
+
+    .dayCell::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: transparent;
+        margin: 0 auto;
+    }
+
+    .dayCell:has(.appointmentDot)::after {
+        background: hsl(var(--primary));
+        box-shadow: 0 0 5px hsla(var(--primary) / 0.5);
+    }
+}

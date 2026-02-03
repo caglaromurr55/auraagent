@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  name     String
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  email     String?
+  createdAt DateTime @default(now())
+  appointments Appointment[]
+  messages     ChatMessage[]
+}
+
+model Staff {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String
+  status    String   // Legacy field, moving towards workState
+  workState String   @default("Offline") // Offline, InShift, OnBreak
+  color     String   // HSL or Hex
+  appointments Appointment[]
+  shifts       Shift[]
+  workLogs     WorkLog[]
+}
+
+model WorkLog {
+  id        Int      @id @default(autoincrement())
+  staffId   Int
+  staff     Staff    @relation(fields: [staffId], references: [id])
+  type      String   // SHIFT_START, SHIFT_END, BREAK_START, BREAK_END
+  timestamp DateTime @default(now())
+  metadata  String?  // Optional extra info
+}
+
+model Shift {
+  id        Int      @id @default(autoincrement())
+  staffId   Int
+  staff     Staff    @relation(fields: [staffId], references: [id])
+  dayOfWeek Int      // 0-6 (Sunday to Saturday)
+  startTime String   // e.g. "09:00"
+  endTime   String   // e.g. "18:00"
+  isActive  Boolean  @default(true)
+}
+
+model Appointment {
+  id         Int      @id @default(autoincrement())
+  time       String
+  date       DateTime @default(now())
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id])
+  serviceId  Int
+  service    Service  @relation(fields: [serviceId], references: [id])
+  staffId    Int
+  staff      Staff    @relation(fields: [staffId], references: [id])
+  status     String   // Pending, Confirmed, Late, Completed
+  room       String
+  arrivalPrompted Boolean @default(false)
+  completionPrompted Boolean @default(false)
+}
+
+model Service {
+  id           Int      @id @default(autoincrement())
+  name         String
+  price        Float
+  duration     Int      // minutes
+  appointments Appointment[]
+}
+
+model ChatMessage {
+  id         Int      @id @default(autoincrement())
+  customerId Int?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  sender     String   // "Bot" or Customer Name or Staff Name
+  text       String
+  time       DateTime @default(now())
+  type       String   // incoming, outgoing
+}

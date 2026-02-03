@@ -1,0 +1,176 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+}
+
+.metricsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.grid2Col {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+}
+
+.chartArea {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 200px;
+    padding-top: 1rem;
+    gap: 1rem;
+}
+
+@media (max-width: 480px) {
+    .chartArea {
+        gap: 0.5rem;
+    }
+}
+
+.chartBarWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.chartBar {
+    width: 100%;
+    max-width: 40px;
+    background: linear-gradient(to top, hsla(var(--primary) / 0.8), hsla(var(--primary) / 0.2));
+    border-radius: 6px 6px 0 0;
+    transition: all 0.3s ease;
+    min-height: 4px;
+}
+
+.chartBarWrapper:hover .chartBar {
+    filter: brightness(1.2);
+    transform: scaleX(1.1);
+}
+
+.chartLabel {
+    font-size: 0.7rem;
+    color: hsl(var(--fg-secondary));
+    font-weight: 600;
+}
+
+.staffList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.staffItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.staffAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: hsl(var(--bg-secondary));
+    border: 1px solid hsl(var(--border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: hsl(var(--primary));
+}
+
+.statusDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    font-size: 0.75rem;
+    color: hsl(var(--fg-secondary));
+    padding-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.table td {
+    padding: 1.25rem 0;
+    border-top: 1px solid hsla(var(--border) / 0.5);
+    font-size: 0.9rem;
+}
+
+.statusBadge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.statusBadge[data-status="Onaylandı"] {
+    background: hsla(var(--success) / 0.1);
+    color: hsl(var(--success));
+}
+
+.statusBadge[data-status="Bekliyor"] {
+    background: hsla(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+}
+
+.statusBadge[data-status="Gecikti"] {
+    background: hsla(var(--error) / 0.1);
+    color: hsl(var(--error));
+}
+
+@media (max-width: 1200px) {
+    .grid2Col {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tableActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+}
+
+.searchWrapper {
+    flex: 1;
+    max-width: 400px;
+}
+
+@media (max-width: 600px) {
+    .tableActions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .searchWrapper {
+        max-width: 100%;
+    }
+}
