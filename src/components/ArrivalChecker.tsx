@@ -40,6 +40,10 @@ export default function ArrivalChecker() {
         const checkApp = async () => {
             if (activeItem) return; // Don't check if something is already showing
 
+            // Security Fix: Only check if a user is logged in
+            const userStr = localStorage.getItem('aura_user');
+            if (!userStr) return;
+
             try {
                 const now = Date.now();
 
