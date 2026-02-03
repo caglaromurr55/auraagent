@@ -1,0 +1,198 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@aurabeauty.com",
+      "password": "password123",
+      "name": "Aura Admin"
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "name": "Mehmet Aksu",
+      "phone": "05415701010",
+      "email": "aksumuhammedtayyip@gmail.com",
+      "createdAt": "2026-02-03T05:38:07.754Z"
+    },
+    {
+      "id": 2,
+      "name": "Neşe Yılmaz",
+      "phone": "06372737277",
+      "email": "deneme@gmail.com",
+      "createdAt": "2026-02-03T05:38:50.056Z"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Manikür",
+      "price": 850,
+      "duration": 20
+    }
+  ],
+  "staff": [
+    {
+      "id": 1,
+      "email": "uzman@aurabeauty.com",
+      "password": "password123",
+      "name": "Selin Uzman",
+      "role": "Cilt Bakımı Uzmanı",
+      "status": "Available",
+      "workState": "InShift",
+      "color": "#4F46E5"
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "time": "08:42",
+      "date": "2026-02-03T00:00:00.000Z",
+      "customerId": 1,
+      "serviceId": 1,
+      "staffId": 1,
+      "status": "Onaylandı",
+      "room": "Oda 1",
+      "arrivalPrompted": true,
+      "completionPrompted": false
+    }
+  ],
+  "workLogs": [
+    {
+      "id": 1,
+      "staffId": 1,
+      "type": "SHIFT_START",
+      "timestamp": "2026-02-03T04:27:11.525Z",
+      "metadata": null
+    },
+    {
+      "id": 2,
+      "staffId": 1,
+      "type": "BREAK_START",
+      "timestamp": "2026-02-03T04:27:11.557Z",
+      "metadata": null
+    },
+    {
+      "id": 3,
+      "staffId": 1,
+      "type": "BREAK_END",
+      "timestamp": "2026-02-03T04:28:41.223Z",
+      "metadata": null
+    },
+    {
+      "id": 4,
+      "staffId": 1,
+      "type": "BREAK_START",
+      "timestamp": "2026-02-03T04:29:27.664Z",
+      "metadata": null
+    },
+    {
+      "id": 5,
+      "staffId": 1,
+      "type": "BREAK_END",
+      "timestamp": "2026-02-03T04:29:28.782Z",
+      "metadata": null
+    },
+    {
+      "id": 6,
+      "staffId": 1,
+      "type": "BREAK_START",
+      "timestamp": "2026-02-03T04:29:30.711Z",
+      "metadata": null
+    },
+    {
+      "id": 7,
+      "staffId": 1,
+      "type": "BREAK_END",
+      "timestamp": "2026-02-03T04:29:31.614Z",
+      "metadata": null
+    },
+    {
+      "id": 8,
+      "staffId": 1,
+      "type": "BREAK_START",
+      "timestamp": "2026-02-03T04:34:03.615Z",
+      "metadata": null
+    },
+    {
+      "id": 9,
+      "staffId": 1,
+      "type": "BREAK_END",
+      "timestamp": "2026-02-03T04:34:04.392Z",
+      "metadata": null
+    },
+    {
+      "id": 10,
+      "staffId": 1,
+      "type": "BREAK_START",
+      "timestamp": "2026-02-03T04:38:10.208Z",
+      "metadata": null
+    },
+    {
+      "id": 11,
+      "staffId": 1,
+      "type": "BREAK_END",
+      "timestamp": "2026-02-03T04:38:12.280Z",
+      "metadata": null
+    }
+  ],
+  "shifts": [
+    {
+      "id": 1,
+      "staffId": 1,
+      "dayOfWeek": 0,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "staffId": 1,
+      "dayOfWeek": 1,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "staffId": 1,
+      "dayOfWeek": 2,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    },
+    {
+      "id": 4,
+      "staffId": 1,
+      "dayOfWeek": 3,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "staffId": 1,
+      "dayOfWeek": 4,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    },
+    {
+      "id": 6,
+      "staffId": 1,
+      "dayOfWeek": 5,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": false
+    },
+    {
+      "id": 7,
+      "staffId": 1,
+      "dayOfWeek": 6,
+      "startTime": "09:00",
+      "endTime": "18:00",
+      "isActive": true
+    }
+  ],
+  "messages": []
+}
