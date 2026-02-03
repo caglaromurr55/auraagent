@@ -17,6 +17,7 @@ async function exportData() {
         workLogs: await prisma.workLog.findMany(),
         shifts: await prisma.shift.findMany(),
         messages: await prisma.chatMessage.findMany(),
+        expenses: await prisma.expense.findMany(),
     };
 
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
@@ -78,9 +79,14 @@ async function importData() {
         await prisma.chatMessage.upsert({ where: { id: item.id }, update: item, create: item });
     }
 
+    console.log('Giderler yükleniyor...');
+    for (const item of data.expenses) {
+        await prisma.expense.upsert({ where: { id: item.id }, update: item, create: item });
+    }
+
     // 3. PostgreSQL ID Sequence'lerini güncelleme
     console.log('ID sıralamaları güncelleniyor...');
-    const tables = ['User', 'Customer', 'Service', 'Staff', 'Shift', 'Appointment', 'WorkLog', 'ChatMessage'];
+    const tables = ['User', 'Customer', 'Service', 'Staff', 'Shift', 'Appointment', 'WorkLog', 'ChatMessage', 'Expense'];
     for (const table of tables) {
         try {
             await prisma.$executeRawUnsafe(`SELECT setval(pg_get_serial_sequence('"${table}"', 'id'), COALESCE((SELECT MAX(id) FROM "${table}"), 1))`);

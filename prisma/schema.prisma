@@ -28,17 +28,18 @@ model Customer {
 }
 
 model Staff {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String
-  role      String
-  status    String   // Legacy field, moving towards workState
-  workState String   @default("Offline") // Offline, InShift, OnBreak
-  color     String   // HSL or Hex
-  appointments Appointment[]
-  shifts       Shift[]
-  workLogs     WorkLog[]
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String
+  name           String
+  role           String
+  status         String   // Legacy field, moving towards workState
+  workState      String   @default("Offline") // Offline, InShift, OnBreak
+  color          String   // HSL or Hex
+  commissionRate Float    @default(0.1) // Add this field
+  appointments   Appointment[]
+  shifts         Shift[]
+  workLogs       WorkLog[]
 }
 
 model WorkLog {
@@ -80,8 +81,18 @@ model Service {
   id           Int      @id @default(autoincrement())
   name         String
   price        Float
+  cost         Float    @default(0.0) // Add this field for material costs
   duration     Int      // minutes
   appointments Appointment[]
+}
+
+model Expense {
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  category    String
+  date        DateTime @default(now())
+  description String?
+  type        String   // Fixed, Variable
 }
 
 model ChatMessage {

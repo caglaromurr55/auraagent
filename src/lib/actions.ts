@@ -387,22 +387,29 @@ export async function getStaffWorkState(staffId: number) {
 }
 
 export async function getAttendanceStats() {
-    return prisma.$queryRawUnsafe(`
+    const stats: any = await prisma.$queryRawUnsafe(`
         SELECT 
             s.id,
             s.name,
             s.role,
             s."commissionRate",
-            COUNT(CASE WHEN w.type = 'SHIFT_START' THEN 1 END) as shiftCount,
-            (SELECT COUNT(*) FROM "Appointment" a WHERE a."staffId" = s.id AND a.status = 'Tamamlandı') as completedJobs,
+            COUNT(CASE WHEN w.type = 'SHIFT_START' THEN 1 END) as "shiftCount",
+            (SELECT COUNT(*) FROM "Appointment" a WHERE a."staffId" = s.id AND a.status = 'Tamamlandı') as "completedJobs",
             (SELECT SUM(ser.price * s."commissionRate") 
              FROM "Appointment" a 
              JOIN "Service" ser ON a."serviceId" = ser.id 
-             WHERE a."staffId" = s.id AND a.status = 'Tamamlandı') as totalCommission
+             WHERE a."staffId" = s.id AND a.status = 'Tamamlandı') as "totalCommission"
         FROM "Staff" s
         LEFT JOIN "WorkLog" w ON s.id = w."staffId"
         GROUP BY s.id
     `);
+
+    return (stats as any[]).map(s => ({
+        ...s,
+        shiftCount: Number(s.shiftCount || 0),
+        completedJobs: Number(s.completedJobs || 0),
+        totalCommission: Number(s.totalCommission || 0)
+    }));
 }
 
 export async function getFinancialData() {
@@ -413,7 +420,7 @@ export async function getFinancialData() {
         JOIN "Service" s ON a."serviceId" = s.id
         WHERE a.status = 'Tamamlandı'
     `);
-    const totalRevenue = revenueData[0]?.total || 0;
+    const totalRevenue = Number(revenueData[0]?.total || 0);
 
     // 2. Service Costs (Material costs for completed treatments)
     const costData: any = await prisma.$queryRawUnsafe(`
@@ -422,7 +429,7 @@ export async function getFinancialData() {
         JOIN "Service" s ON a."serviceId" = s.id
         WHERE a.status = 'Tamamlandı'
     `);
-    const totalServiceCosts = costData[0]?.total || 0;
+    const totalServiceCosts = Number(costData[0]?.total || 0);
 
     // 3. Staff Commissions
     const commissionData: any = await prisma.$queryRawUnsafe(`
@@ -432,14 +439,14 @@ export async function getFinancialData() {
         JOIN "Staff" sta ON a."staffId" = sta.id
         WHERE a.status = 'Tamamlandı'
     `);
-    const totalCommissions = commissionData[0]?.total || 0;
+    const totalCommissions = Number(commissionData[0]?.total || 0);
 
     // 4. Operational Expenses
     const expenseData: any = await prisma.$queryRawUnsafe(`
         SELECT SUM(amount) as total
         FROM "Expense"
     `);
-    const totalExpenses = expenseData[0]?.total || 0;
+    const totalExpenses = Number(expenseData[0]?.total || 0);
 
     // 5. Recent Expenses
     const recentExpenses = await prisma.$queryRawUnsafe(`
@@ -452,7 +459,7 @@ export async function getFinancialData() {
         commissions: totalCommissions,
         expenses: totalExpenses,
         netProfit: totalRevenue - totalServiceCosts - totalCommissions - totalExpenses,
-        recentExpenses
+        recentExpenses: (recentExpenses as any[]).map(e => ({ ...e, amount: Number(e.amount) }))
     };
 }
 
