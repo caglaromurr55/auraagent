@@ -512,32 +512,37 @@ export async function getReportingData() {
 }
 // Auth & Users
 export async function loginUser(email: string, password?: string) {
-    // 1. Check Admins
-    const user = await prisma.user.findUnique({
-        where: { email }
-    });
+    try {
+        // 1. Check Admins
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
 
-    if (user && user.password === password) {
-        return {
-            success: true,
-            user: { id: user.id, name: user.name, email: user.email, role: 'Admin' }
-        };
+        if (user && user.password === password) {
+            return {
+                success: true,
+                user: { id: user.id, name: user.name, email: user.email, role: 'Admin' }
+            };
+        }
+
+        // 2. Check Staff via Raw SQL to bypass lock
+        const staff: any = await prisma.$queryRawUnsafe(
+            `SELECT * FROM "Staff" WHERE email = $1 LIMIT 1`,
+            email
+        );
+
+        if (staff && staff[0] && staff[0].password === password) {
+            return {
+                success: true,
+                user: { id: staff[0].id, name: staff[0].name, email: staff[0].email, role: 'Staff' }
+            };
+        }
+
+        return { success: false, error: "Hatalı e-posta veya şifre." };
+    } catch (error) {
+        console.error("Login Error:", error);
+        return { success: false, error: "Sunucu hatası: Giriş yapılamadı." };
     }
-
-    // 2. Check Staff via Raw SQL to bypass lock
-    const staff: any = await prisma.$queryRawUnsafe(
-        `SELECT * FROM "Staff" WHERE email = $1 LIMIT 1`,
-        email
-    );
-
-    if (staff && staff[0] && staff[0].password === password) {
-        return {
-            success: true,
-            user: { id: staff[0].id, name: staff[0].name, email: staff[0].email, role: 'Staff' }
-        };
-    }
-
-    return { success: false, error: "Hatalı e-posta veya şifre." };
 }
 
 export async function ensureAdminExists() {
