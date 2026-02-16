@@ -1,4 +1,5 @@
 import BookingClient from "./BookingClient";
+export const dynamic = "force-dynamic";
 import { getServices, getStaffWithShifts } from "@/lib/actions";
 
 export default async function BookingPage() {
