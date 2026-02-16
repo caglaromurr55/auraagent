@@ -49,7 +49,7 @@ export async function getDashboardStats(staffId?: number) {
         ))
     ]);
 
-    const revenue = completedAppointments.reduce((acc, app) => acc + (app.service?.price || 0), 0);
+    const revenue = completedAppointments.reduce((acc: number, app) => acc + (app.service?.price || 0), 0);
     const completedCount = completedAppointments.length;
 
     // Stable rating based on completed Count to avoid jumping values on every refresh
